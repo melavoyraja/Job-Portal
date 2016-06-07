@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="hibSessionFactory">
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.password">P@ssw0rd</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jobportal</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.show_sql">true</property>
+  <mapping class="com.job.portal.pojo.JobSeeker"/>
+  <mapping class="com.job.portal.pojo.User"/>
+  <mapping class="com.job.portal.pojo.Roles"/>
+  <mapping class="com.job.portal.pojo.Appliedjobs"/>
+  <mapping class="com.job.portal.pojo.Job"/>
+  <mapping class="com.job.portal.pojo.Employer"/>
+  <mapping class="com.job.portal.pojo.Location"/>
+  <mapping class="com.job.portal.pojo.Admin"/>
+  <mapping class="com.job.portal.pojo.Adminapprovalstatuscode"/>
+  <mapping class="com.job.portal.pojo.Jobtype"/>
+  <mapping class="com.job.portal.pojo.JobapplicationStatusCode"/>
+ </session-factory>
+</hibernate-configuration>

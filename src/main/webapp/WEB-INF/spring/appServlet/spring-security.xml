@@ -1,0 +1,58 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- one of the properties available; the maximum file size in bytes -->
+		
+
+	</beans:bean>
+
+	<beans:bean id="appliedJobsValidator" class="com.job.portal.validator.ApplyJobsValidator"
+		autowire="byType">
+	</beans:bean>
+
+	<beans:bean id="updateProfileValidator" class="com.job.portal.validator.UpdateProfileValidator"
+		autowire="byType">
+	</beans:bean>
+
+	<beans:bean id="addJobValidator" class="com.job.portal.validator.AddJobValidator"
+		autowire="byType">
+	</beans:bean>
+
+	<http auto-config="true">
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/homepage.htm"
+			access="hasRole('JobSeeker') or hasRole('Admin') or hasRole('Employer')" />
+		<intercept-url pattern="/updateprofile.htm"
+			access="hasRole('JobSeeker') or hasRole('Admin') or hasRole('Employer')" />
+		<intercept-url pattern="/jobseeker/**" access="hasRole('JobSeeker')" />
+		<intercept-url pattern="/y400z420/**" access="hasRole('Admin')" />
+		<intercept-url pattern="/employer/**" access="hasRole('Employer')" />
+		<form-login login-page="/login.htm" username-parameter="email"
+			password-parameter="password" default-target-url="/homepage.htm"
+			authentication-failure-url="/login.htm?loginerror=true" />
+		<csrf disabled="true" />
+		<remember-me  
+		   key="rem-me-key" 
+		   remember-me-parameter="remember-me-param"
+		   remember-me-cookie="my-remember-me"
+		   token-validity-seconds="86400"/>
+		<logout 
+		   logout-url="/appLogout" 
+		   logout-success-url="/"/>
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="userAuthenticationDAO" />
+	</authentication-manager>
+
+
+
+	<beans:bean id="userAuthenticationDAO" class="com.job.portal.dao.UserAuthenticationDAO" />
+
+</beans:beans>
